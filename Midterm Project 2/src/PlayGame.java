@@ -3,12 +3,13 @@ import java.util.Scanner;
 public class PlayGame
 	{
 	static String name;
-	static int userPlayer;
-	static int computerPlayer;
+	static int userPlayer, computerPlayer;
 	static boolean keepPlaying;
-	static int userShotChoice;
-	static double userShotPercentage;
-	static int computerShotChoice;
+	static int userShotChoice , computerShotChoice;
+	static double userShotPercentage, computerShotPercentage;
+	static String userShotOutcome, computerShotOutCome;
+	static int userTotalMisses, computerTotalMisses;
+	
 
 	public static void greetPlayer()
 		{
@@ -34,6 +35,7 @@ public class PlayGame
 			}
 		Scanner userInput = new Scanner(System.in);
 		userPlayer = userInput.nextInt();
+		
 		if (userPlayer == 1)
 			{
 			computerPlayer = 2;
@@ -95,52 +97,98 @@ public class PlayGame
 			if (userShotPercentage >= userShotRandomNumber)
 				{
 				System.out.println("Nice you made it!");
-				} else
+				userShotOutcome = "make";
+				} 
+				else
 				{
 				System.out.println("Sorry you missed.");
+				userShotOutcome = "miss";
 				}
 			
-			computerShotChoice = userShotChoice;
-			switch (userShotChoice)
+			
+			switch (computerShotChoice)
 			{
 			case 1:
 				{
-				userShotPercentage = DataOfPlayers.dataOfPlayers.get(
+					computerShotPercentage = DataOfPlayers.dataOfPlayers.get(
 						computerPlayer - 1).getFreeThrowPercentage();
 				break;
 				}
 			case 2:
 				{
-				userShotPercentage = DataOfPlayers.dataOfPlayers.get(
+					computerShotPercentage = DataOfPlayers.dataOfPlayers.get(
 						computerPlayer - 1).getThreePointPercentage();
 				break;
 				}
 			case 3:
 				{
-				userShotPercentage = DataOfPlayers.dataOfPlayers.get(
+					computerShotPercentage = DataOfPlayers.dataOfPlayers.get(
 						computerPlayer - 1).getMidRangePercentage();
 				break;
 				}
 			case 4:
 				{
-				userShotPercentage = DataOfPlayers.dataOfPlayers.get(
+					computerShotPercentage = DataOfPlayers.dataOfPlayers.get(
 						computerPlayer - 1).getLayupPercentage();
 				break;
 				}
 			case 5:
 				{
-				userShotPercentage = DataOfPlayers.dataOfPlayers.get(
+					computerShotPercentage = DataOfPlayers.dataOfPlayers.get(
 						computerPlayer - 1).getBackwardsShotPercentage();
 				break;
 				}
 			
-			// then make else miss
-			// if usershot = make and computershot = miss then add letter to
-			// computer
-			// else dont add letter
-			// if total misses after a make ==3 then game over rached pig
+			if (computerShotPercentage>= computerShotRandomNumber)
+				{
+				System.out.println("Your opponent shot and made it.");
+				computerShotOutCome ="make";
+				}
+			else
+				{
+				System.out.println("Your opponent shot and missed it.");
+				computerShotOutCome = "miss";
+				}
+			
+			if (userShotOutcome.equals("make") && computerShotOutCome.equals("make"))
+			{
+				System.out.println("Since you both make the shot no one gets a Letter");
+			}
+			else if(userShotOutcome.equals("make") && computerShotOutCome.equals("miss"))
+			{
+				System.out.println("Since you made it and he missed. He gets a Letter");
+			}
+			else if (userShotOutcome.equals("miss") && computerShotOutCome.equals("make"))
+			{
+				System.out.println("Since you missed it and he made the shot. You get a Letter.");
+			}
+			else
+			{
+				System.out.println("Both of you missed it. So neither gets a letter.");
+			}
+			
+			switch (userTotalMisses)
+			{
+			case 1:
+			{
+			System.out.println("You gained the Letter- P");
+			break;
+			}
+			case 2:
+			{
+				System.out.println("You gained another letter and you now have - PI");
+				break;
+			}
+			case 3:
+			{
+				System.out.println("Dang man. Sorry but that was your last letter. You have PIG and lost the game.");
+				keepPlaying = false;
+				break;
+			}
+			}
 			} 
-		
+			
 			}while (keepPlaying);
+
 	}
 	}
