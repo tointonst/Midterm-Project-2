@@ -1,14 +1,14 @@
-
-public class Player {
+public class Player
+	{
 	private String nameOfPlayer;
 	private double freeThrowPercentage;
 	private double threePointPercentage;
 	private double midRangePercentage;
 	private double layupPercentage;
 	private double backwardsShotPercentage;
-	
 
-	public Player(String nop, double ftp, double tpp, double mrp, double lp, double dsp)
+	public Player(String nop, double ftp, double tpp, double mrp, double lp,
+			double dsp)
 		{
 		nameOfPlayer = nop;
 		freeThrowPercentage = ftp;
@@ -22,7 +22,7 @@ public class Player {
 		{
 		return nameOfPlayer;
 		}
-	
+
 	public double getFreeThrowPercentage()
 		{
 		return freeThrowPercentage;
@@ -32,15 +32,17 @@ public class Player {
 		{
 		return threePointPercentage;
 		}
-	
+
 	public double getMidRangePercentage()
 		{
 		return midRangePercentage;
 		}
+
 	public double getLayupPercentage()
 		{
 		return layupPercentage;
 		}
+
 	public double getBackwardsShotPercentage()
 		{
 		return backwardsShotPercentage;
@@ -60,4 +62,4 @@ public class Player {
 		{
 		this.threePointPercentage = threePointPercentage;
 		}
-}
+	}
