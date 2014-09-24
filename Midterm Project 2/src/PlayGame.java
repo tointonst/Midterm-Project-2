@@ -4,7 +4,7 @@ public class PlayGame
 	{
 	static String name;
 	static int userPlayer, computerPlayer;
-	static boolean keepPlaying;
+	static boolean keepPlaying = true;
 	static int userShotChoice , computerShotChoice;
 	static double userShotPercentage, computerShotPercentage;
 	static String userShotOutcome, computerShotOutCome;
@@ -17,7 +17,7 @@ public class PlayGame
 		Scanner userInput1 = new Scanner(System.in);
 		name = userInput1.nextLine();
 		System.out.println("Nice to meet you " + name + "!");
-		System.out.println("We are going to play PIG Basketball.");
+		System.out.println(name + ", we are going to play PIG Basketball.");
 		System.out.println("");
 
 		}
@@ -29,8 +29,7 @@ public class PlayGame
 				.println("Which player would you like to play with. Choose the number according to the player.");
 		for (Player showPlayers : DataOfPlayers.dataOfPlayers)
 			{
-			System.out.println(counter);
-			System.out.println(showPlayers.getNameOfPlayer());
+			System.out.println("(" + counter +")" + showPlayers.getNameOfPlayer());
 			counter++;
 			}
 		Scanner userInput = new Scanner(System.in);
@@ -39,7 +38,8 @@ public class PlayGame
 		if (userPlayer == 1)
 			{
 			computerPlayer = 2;
-			} else
+			} 
+		else
 			{
 			computerPlayer = 1;
 			}
@@ -47,12 +47,14 @@ public class PlayGame
 		String[] whichShot =
 			{ "Free Throw", "Three Pointer", "Mid Range", "Layup",
 					"Backwards Shot" };
-		int counter2 = 1;
+		
 		do
 			{
+			System.out.println("");
 			double userShotRandomNumber = (Math.random() * 100);
 			double computerShotRandomNumber = (Math.random() * 100);
 			System.out.println("Which shot would you like to take?");
+			int counter2 = 1;
 			for (String printShot : whichShot)
 				{
 				System.out.print("(" + counter2 + ")" + printShot + "   ");
@@ -96,16 +98,16 @@ public class PlayGame
 				}
 			if (userShotPercentage >= userShotRandomNumber)
 				{
-				System.out.println("Nice you made it!");
+				System.out.println("Nice you made the " + whichShot[userShotChoice-1] + ".");
 				userShotOutcome = "make";
 				} 
 				else
 				{
-				System.out.println("Sorry you missed.");
+				System.out.println("Sorry you missed the " + whichShot[userShotChoice-1] + ".");
 				userShotOutcome = "miss";
 				}
 			
-			
+			computerShotChoice = userShotChoice;
 			switch (computerShotChoice)
 			{
 			case 1:
@@ -138,45 +140,54 @@ public class PlayGame
 						computerPlayer - 1).getBackwardsShotPercentage();
 				break;
 				}
-			
+			}
 			if (computerShotPercentage>= computerShotRandomNumber)
 				{
-				System.out.println("Your opponent shot and made it.");
+				System.out.println("Your opponent shot and made the " + whichShot[userShotChoice-1] + ".");
 				computerShotOutCome ="make";
 				}
 			else
 				{
-				System.out.println("Your opponent shot and missed it.");
+				System.out.println("Your opponent shot and missed the " + whichShot[userShotChoice-1] + ".");
 				computerShotOutCome = "miss";
 				}
 			
 			if (userShotOutcome.equals("make") && computerShotOutCome.equals("make"))
 			{
-				System.out.println("Since you both make the shot no one gets a Letter");
+				System.out.println("Since you both made the " + whichShot[userShotChoice-1] + " no one gets a Letter.");
 			}
 			else if(userShotOutcome.equals("make") && computerShotOutCome.equals("miss"))
 			{
-				System.out.println("Since you made it and he missed. He gets a Letter");
+				System.out.println("Since you made the " + whichShot[userShotChoice-1] + " and he missed. He gets a Letter.");
+				computerTotalMisses++;
 			}
 			else if (userShotOutcome.equals("miss") && computerShotOutCome.equals("make"))
 			{
-				System.out.println("Since you missed it and he made the shot. You get a Letter.");
+				System.out.println("Since you missed the " + whichShot[userShotChoice-1] + " and he made the " + whichShot[userShotChoice-1] + ". You get a Letter.");
+				userTotalMisses++;
 			}
 			else
 			{
-				System.out.println("Both of you missed it. So neither gets a letter.");
+				System.out.println("Both of you missed the " + whichShot[userShotChoice-1] + ". So neither gets a letter.");
 			}
+			System.out.println("userPercent" + userShotPercentage);
+			System.out.println("userrandom" + userShotRandomNumber);
+			System.out.println("compPercent" + computerShotPercentage);
+			System.out.println("comprandom " + computerShotRandomNumber);
+			System.out.println(computerPlayer);
+			System.out.println(computerShotChoice);
+			
 			
 			switch (userTotalMisses)
 			{
 			case 1:
 			{
-			System.out.println("You gained the Letter- P");
+			System.out.println("Your total letters are: P ");
 			break;
 			}
 			case 2:
 			{
-				System.out.println("You gained another letter and you now have - PI");
+				System.out.println("Your total letters are: PI");
 				break;
 			}
 			case 3:
@@ -186,9 +197,30 @@ public class PlayGame
 				break;
 			}
 			}
-			} 
 			
-			}while (keepPlaying);
+			switch (computerTotalMisses)
+			{
+			case 1:
+			{
+			System.out.println("Opponents total letters are : P");
+			break;
+			}
+			case 2:
+			{
+				System.out.println("Opponents total letters are : PI");
+				break;
+			}
+			case 3:
+			{
+				System.out.println("Congradulations man. That was his last Letter and he has recived PIG. You have won the GAME!.");
+				keepPlaying = false;
+				break;
+			}
+			}
+			
+			
+			}
+		while(keepPlaying==true);
 
 	}
 	}
